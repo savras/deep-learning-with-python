@@ -21,10 +21,10 @@ def vectorize_sequence(sequences, dimensions=10000):
     return results
 
 x_train = vectorize_sequence(train_data)
-x_text = vectorize_sequence(test_data)
+x_test = vectorize_sequence(test_data)
 
 print(x_train[0])
-print(x_text[0])
+print(x_test[0])
 
 y_train = np.asarray(train_labels).astype('float32')
 y_test = np.asarray(test_labels).astype('float32')
@@ -46,6 +46,8 @@ partial_y_train = y_train[10000:]
 history = model.fit(partial_x_train, partial_y_train, epochs=20, batch_size=512, validation_data=(x_val, y_val))
 history_dict = history.history
 print(history_dict.keys())
+
+model.predict(x_test)
 
 # draw matlab graph
 import matplotlib.pyplot as plt
