@@ -50,15 +50,17 @@ print(history_dict.keys())
 model.predict(x_test)
 
 # draw matlab graph
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 loss_value = history_dict['loss']
 val_loss_values = history_dict['val_loss']
 
-epochs = range(1, len(acc) + 1)
+epochs = range(1, len(history_dict['acc']) + 1)
 
-plt.plot(epochs, loss_value, 'bo', label='Training loss')
-plt.plot(epochs, val_loss_values, 'b', label='Validation loss')
+plt.plot(epochs, loss_value, 'bo', label='Training loss')    #bo for blue line
+plt.plot(epochs, val_loss_values, 'b', label='Validation loss')    #b for solid line
 plt.title('Training and validation loss')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
