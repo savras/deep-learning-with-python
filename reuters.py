@@ -1,4 +1,5 @@
 import tensorflow as tf
+import np as numpy
 #from tf.keras.datasets import reuters
 
 
