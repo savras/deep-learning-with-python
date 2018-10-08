@@ -30,3 +30,25 @@ def to_one_hot(labels, dimension=46):
 
 one_hot_train_labels = to_one_hot(train_labels)
 one_hot_test_labels = to_one_hot(test_labels)
+
+models = tf.keras.models
+layers = tf.keras.layers
+
+model = models.Sequential()
+model.add(layers.Dense(64, activation='relu', input_shape=(1000,)))
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(46, activation='softmax'))
+# outputs probability distribution over 46 diff output classes. 46 scores will sum to 1.
+
+model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# use 1000 data as validation set
+x_val = x_train[:1000]
+partial_x_train = x_train[1000:]
+
+y_val = one_hot_train_labels[:1000]
+partial_y_train = one_hot_train_labels[1000:]
+
+# train network for 20 epochs
+history = model.fit(partial_x_train, partial_y_train, epochs=20, batch_size=512, validation_data=(x_val, y_val))
+
